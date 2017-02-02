@@ -1,0 +1,112 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Notes</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="{% static 'ajax_note/css/style.css' %}">
+	<script type="text/javascript">
+    	$(document).ready(function (){
+        	$('.create_form').submit(function(e){
+				e.preventDefault();
+				$.ajax({
+					url: '/notes',
+					method: 'post',
+					data: $(this).serialize(),
+					success: function(serverResponse){
+						console.log("Received this from server: ", serverResponse);
+						$('#note_box').html(serverResponse)
+					}
+				});
+				$('#id_title').val('');
+			});
+			$(document).on('submit', '.delete_form', function(e){
+				e.preventDefault();
+				$.ajax({
+						url: '/delete',
+						method: 'post',
+						data: $(this).serialize(),
+						success: function(serverResponse){
+							console.log("Click Deleted");
+							console.log("Received this from server: ", serverResponse);
+							$("#note_box").html(serverResponse);
+						}
+				});
+			})
+
+        	$('.update_form').submit(function(e){
+				e.preventDefault();
+				$.ajax({
+					url: '/update',
+					method: 'post',
+					data: $(this).serialize(),
+					success: function(serverRespose){
+						console.log("Updated a Description");
+						// console.log("Received this from server: ", serverRespose);
+					}
+				});
+			});
+  			 	
+        	var description_text = '';
+
+			$(document).on('click', '.txt_desc', function() {
+				description_text = $(this).text();
+		    	var input = $("<textarea>", { val: $(this).text(), name: "description", class: "description_textarea", maxlength: "200"});
+		    	$(this).replaceWith(input);
+		    	input.select();
+			});
+			$(document).on('focusout', '.description_textarea', function(){
+			var text = $("<p>", { text: description_text, class: "txt_desc" });
+    			$(this).replaceWith(text);
+			});
+			$(document).on('keypress', '.description_textarea', function(e){		
+				if (e.which == 13) {
+					description_text = $(this).val();
+					console.log("13")	
+					$(this).submit();
+					$(this).blur();
+					return false;    
+				}
+			});
+
+    	});
+    </script>	
+</head>
+<body>
+<div id="wrapper">
+<h2>---- Notes -----</h2>
+<div id="note_box">
+	{% for note in notes %}
+		<div id="note_{{note.id}}" class="note">
+			<form class="title_form" action="{% url 'notes' %}" method="POST">
+			{% csrf_token %}
+				<h3 class="title">{{ note.title }}</h3>
+				<input type="hidden" name="id" value="{{note.id}}">
+			</form>
+			<form class="delete_form" action="{% url 'delete' %}" method="POST">
+			{% csrf_token %}
+				<button class="btn_delete" type="submit">Delete</button>
+				<input type="hidden" name="id" value="{{note.id}}">
+			</form>
+			<form class="update_form" action="{% url 'update' %}" method="POST">
+			{% csrf_token %}
+				{% if note.description == None or note.description == ""%}
+				<p class="txt_desc" width="100px"> &nbsp</p>
+				<input type="hidden" name="id" value="{{note.id}}">
+				{%else%}
+				<p class="txt_desc">{{ note.description }}</p>
+				<input type="hidden" name="id" value="{{note.id}}">
+				{% endif%}
+			</form>
+		</div>
+	{% endfor %}
+</div>	
+	<br>
+	<form class="create_form" action="{% url 'notes' %}" method="POST">
+		{% csrf_token %}
+		<p id="tittle">{{ new_note_form.as_p }}
+		<p id="add_note"><button type="submit" id="btn_addnote">Add Note</button></p>
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% for note in notes %}
+	<div id="note_{{note.id}}" class="note">
+		<form class="title_form" action="{% url 'notes' %}" method="POST">
+		{% csrf_token %}
+			<h3 class="title">{{ note.title }}</h3>
+			<input type="hidden" name="id" value="{{note.id}}">
+		</form>
+		<form class="delete_form" action="{% url 'delete' %}" method="POST">
+		{% csrf_token %}
+			<button class="btn_delete" type="submit">Delete</button>
+			<input type="hidden" name="id" value="{{note.id}}">
+		</form>
+		<form class="update_form" action="{% url 'update' %}" method="POST">
+		{% csrf_token %}
+			{% if note.description == None or note.description == ""%}
+			<p class="txt_desc" width="100px"> &nbsp</p>
+			<input type="hidden" name="id" value="{{note.id}}">
+			{%else%}
+			<p class="txt_desc">{{ note.description }}</p>
+			<input type="hidden" name="id" value="{{note.id}}">
+			{% endif%}
+		</form>
+	</div>
+{% endfor %}

@@ -1,0 +1,116 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+#wrapper{
+	padding: 20px;
+}
+#title{
+	font-size: 38px;
+	display: inline-block;
+	vertical-align: top;
+	width: 160px;
+}
+
+.note {
+  width: 220px;
+  height: 220px;
+  border: 2px solid black;
+  display: inline-block;
+  padding: 10px;
+  vertical-align: top;
+  margin: 4px;
+  background-color: white;
+  text-align: left;
+}
+.note h3{
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 10px;
+	width: 151px;
+	overflow: hidden;
+}
+.note h3, p{
+	color: black;
+}
+.note p{
+	margin-top: 7px;
+	overflow: hidden;
+	font-size: 14px;
+}
+.note button{
+	font-size: 15px;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 15px;
+	background-color: pink;
+	color: white;
+	border: 2px solid pink;
+	border-radius: 10%;
+	cursor: pointer;
+	padding: 1px 3px;
+}
+
+.textinput
+{
+	margin-left: 5px;
+	width: 236px;
+	font-size: 15px;
+	border: 2px solid black;
+
+}
+.textarea{
+	margin-left: 20px;
+	resize: none;
+	width: 235px;
+	height: 200px;
+  	border: 2px solid black;
+	margin-top: 10px;
+}
+.delete_form{
+	display: inline-block;
+}
+.btn_addDesc{
+	border:2px solid black;
+}
+.description_textarea{
+	resize: none;
+	width: 218px;
+	height: 100px;
+	margin-top: 6px;
+	padding-bottom: 5px;
+}
+.title_input{
+	width: 147px;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 9px;
+	margin-bottom: 0px;
+}
+.title_form{
+	display: inline-block;
+}
+#tittle{
+	margin-left: 20px;
+}
+#add_note{
+	padding-left: 5px;
+	padding-top: 10px;
+
+}
+#btn_addnote{
+	height: 30px;
+	width: 80px;
+	border-radius: 5px;
+	background-color: green;
+	border-color: green;
+	color: white;
+	font-weight: bold;
+}
+
+
+

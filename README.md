@@ -1,3 +1,3 @@
 Ajax Notes
 
-A Note Manager Application can create, edit and delete a note
+A Note Manager Application can create, edit and delete notes
